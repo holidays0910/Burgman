@@ -37,8 +37,8 @@ jobs:
       - name: I-download ang Android commandline-tools
         run: |
           cd $ANDROID_SDK_ROOT
-          # Update this URL if Google provides a newer commandlinetools package
-          wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip -O cmdline-tools.zip
+          # Download latest commandline-tools
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
           unzip -q cmdline-tools.zip -d cmdline-tools
           # Layout expected by sdkmanager
           mkdir -p $ANDROID_SDK_ROOT/cmdline-tools/latest
@@ -47,7 +47,7 @@ jobs:
       - name: I-install ang Android SDK packages (platform-tools, platforms, build-tools, NDK)
         run: |
           export PATH=$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH
-          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-31" "build-tools;31.0.0" "ndk;23.1.7779620"
+          yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT "platform-tools" "platforms;android-33" "build-tools;33.0.2" "ndk;25.1.8937393"
           yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses || true
 
       - name: I-update ang pip at i-install ang Buildozer at Cython
@@ -60,6 +60,7 @@ jobs:
           buildozer --version
           python3 -c "import sys,platform; print(sys.version, platform.system())"
           echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT}"
+          echo "ANDROID_HOME=${ANDROID_HOME}"
 
       - name: I-build ang APK (debug) gamit ang Buildozer
         env:
@@ -72,6 +73,7 @@ jobs:
 
       - name: I-upload ang APK bilang artifact (para ma-download mo)
         uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: burgman-apk
           path: bin/*.apk
