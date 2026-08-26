@@ -1,0 +1,40 @@
+# Awtomatikong tatakbo ito sa tuwing may i-a-upload/i-update kang file sa "main" branch,
+# o pwede mo ring i-trigger nang manu-mano sa "Actions" tab (workflow_dispatch).
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: I-checkout ang code
+        uses: actions/checkout@v4
+
+      - name: I-setup ang Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: I-install ang system dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool \
+            pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev \
+            build-essential
+
+      - name: I-install ang Buildozer at Cython
+        run: |
+          pip install --upgrade pip
+          pip install buildozer cython==0.29.36
+
+      - name: I-build ang APK (debug)
+        run: |
+          yes | buildozer android debug
+
+      - name: I-upload ang APK bilang artifact (para ma-download mo)
+        uses: actions/upload-artifact@v4
+        with:
+          name: burgman-esp32-apk
+          path: bin/*.apk
