@@ -1,4 +1,3 @@
-[app]
 
 # (str) Title of your application
 title = Burgman ESP32
@@ -19,8 +18,11 @@ source.include_exts = py,png,jpg,kv,atlas
 version = 1.0
 
 # (list) Application requirements
-# pyjnius = para makausap ang Android Java APIs (Bluetooth)
-requirements = python3,kivy==2.3.0,pyjnius
+# Hindi natin pino-pin ang exact version ng kivy/cython dito - hahayaan nating
+# awtomatikong pumili ng compatible na combination ang buildozer/python-for-android,
+# dahil ang naka-pin na lumang version number ang kadalasang sanhi ng build errors
+# kapag na-outdate na ang mga ito.
+requirements = python3,kivy,pyjnius
 
 # (str) Icon ng app (optional - pwede kang maglagay ng icon.png dito)
 #icon.filename = %(source.dir)s/icon.png
@@ -38,14 +40,11 @@ fullscreen = 0
 # (list) Permissions - ito ang mga kailangan para gumana ang Classic Bluetooth
 android.permissions = BLUETOOTH,BLUETOOTH_ADMIN,BLUETOOTH_CONNECT,BLUETOOTH_SCAN,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION
 
-# (int) Target Android API - dapat kasabay ng modernong Play Store requirements
-android.api = 33
+# (int) Target Android API
+android.api = 34
 
 # (int) Minimum API na susuportahan (21 = Android 5.0, sakop halos lahat ng phone)
 android.minapi = 21
-
-# (str) Android NDK version na gagamitin
-android.ndk = 25b
 
 # (bool) Gamitin ang AndroidX libraries (kailangan para sa bagong Android)
 android.enable_androidx = True
