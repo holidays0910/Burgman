@@ -1,67 +1,23 @@
-
-# (str) Title of your application
-title = Burgman ESP32
-
-# (str) Package name
-package.name = burgmanesp32
-
-# (str) Package domain (kailangan unique, reverse-domain style)
-package.domain = org.yourdomain
-
-# (str) Source code kung nasaan ang main.py
+[app]
+title = Burgman Diagnostic
+package.name = burgmandiagnostic
+package.domain = org.burgman
 source.dir = .
-
-# (list) Source files na isasama (mga extensions)
 source.include_exts = py,png,jpg,kv,atlas
-
-# (str) Application versioning
 version = 1.0
-
-# (list) Application requirements
-# Hindi natin pino-pin ang exact version ng kivy/cython dito - hahayaan nating
-# awtomatikong pumili ng compatible na combination ang buildozer/python-for-android,
-# dahil ang naka-pin na lumang version number ang kadalasang sanhi ng build errors
-# kapag na-outdate na ang mga ito.
-requirements = python3,kivy,pyjnius
-
-# (str) Icon ng app (optional - pwede kang maglagay ng icon.png dito)
-#icon.filename = %(source.dir)s/icon.png
-
-# (str) Supported orientation (portrait, landscape, o all)
+requirements = python3,kivy,jnius
 orientation = portrait
-
-# (bool) Fullscreen application
+osx.python_version = 3
+osx.kivy_version = 1.9.1
 fullscreen = 0
-
-# ---------------------------------------------------------------------------
-# ANDROID SPECIFIC
-# ---------------------------------------------------------------------------
-
-# (list) Permissions - ito ang mga kailangan para gumana ang Classic Bluetooth
-android.permissions = BLUETOOTH,BLUETOOTH_ADMIN,BLUETOOTH_CONNECT,BLUETOOTH_SCAN,ACCESS_FINE_LOCATION,ACCESS_COARSE_LOCATION
-
-# (int) Target Android API
-android.api = 34
-
-# (int) Minimum API na susuportahan (21 = Android 5.0, sakop halos lahat ng phone)
+android.permissions = INTERNET,BLUETOOTH,BLUETOOTH_ADMIN,BLUETOOTH_CONNECT,BLUETOOTH_SCAN
+android.api = 33
 android.minapi = 21
-
-# (bool) Gamitin ang AndroidX libraries (kailangan para sa bagong Android)
-android.enable_androidx = True
-
-# (list) Android archs na i-bubuild (arm64-v8a ang pinaka-common ngayon)
-android.archs = arm64-v8a, armeabi-v7a
-
-# (bool) Kung gusto mo ng debug build na naka-auto-accept ng SDK licenses
-android.accept_sdk_license = True
-
-# (int) Version code (bilang - taasan ito sa bawat bagong release)
-android.numeric_version = 1
+android.sdk = 33
+android.ndk = 25b
+android.archs = arm64-v8a
+p4a.branch = master
 
 [buildozer]
-
-# (int) Log level (0 = error lang, 1 = info, 2 = debug/verbose)
 log_level = 2
-
-# (int) Warn kapag naka-run bilang root (huwag baguhin)
 warn_on_root = 1
